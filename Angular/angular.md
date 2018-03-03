@@ -30,10 +30,8 @@
     |--main.ts     //应用入口点，并启动AppModule 打开浏览器 
    	
    ```
+   ​
 
-5. ​
-
-6. ​
 
 
 
@@ -80,5 +78,5 @@ import FormsModule from '@angular/froms'
 
   ```
 
-  ​
+  
   ```
