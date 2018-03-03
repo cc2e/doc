@@ -30,7 +30,106 @@
     |--main.ts     //应用入口点，并启动AppModule 打开浏览器 
    	
    ```
-   ​
+
+5. Scaffold
+
+
+
+
+## Router 
+
+
+
+##### 学好路由的大纲
+
+1. angular 命令创建一个配置好的路由项目
+2. angular自己创建路由
+3. angular routerlink页面路转 默认跳转路由
+4. angular routerUnkActive 设置routerLink默认选中路由
+5. 路由动态传值
+6. 路由的js跳转
+7. 路由的js路转get传值
+8. 父子路由
+
+
+
+```javascript
+ng new demo --routing   // 创建带路由功能的项目   “--routing”
+
+
+
+{
+  path: 'article',
+  component:ArticleComponent
+},
+{
+	path: 'articleDetail/:aid',  //动态路由配置
+    component:ArticleDetailComponent
+},
+{
+    path: '**', //任意路由
+    component: NewsComponent
+},
+{
+    path: '**',
+    redirectTo:'home'   //重定向到home
+},
+{
+    path:'news',
+    component:'NewsComponent',
+        childrens:[   //子路由
+            {
+                path:'tech',
+            	component:'TechComponent'
+            },
+            {
+                path:'fashion',
+                component:'FashionComponent'
+            }
+        ]
+}
+
+
+<a routerLink="/article/tech" routerLinkActive="active">技术</a>
+<a routerLink="/article/fashion" routerLinkActive="active">时尚</a>
+
+
+<router-outlet> </router-outlet>
+
+
+constructor(private router: Router){}
+
+goNav() {
+    this.router.navigator(['/newscontent',123]); //JS 跳转
+}
+
+
+
+
+
+
+goArticle(aid,id){
+	let navigationExtras: NavigationExtras ={
+    	queryParams: {'aid':aid,'id':id}
+	}
+    this.router.navigate(['/articledetail'],navigationExtras)
+}
+
+import{Router, NavigationExtras} from '@angular/router';
+
+constructor(private router: ActivedRoute){}
+
+this.router.queryParams.subscribe(function(data){
+    console.log(data);
+})  //获取get传值
+
+```
+
+
+
+
+
+
 
 
 
@@ -64,19 +163,79 @@ import FormsModule from '@angular/froms'
 
   ```javascript
   <div *ngIf="condition"><p>condition=true P不显示</p></div>
+
+    <div *ngIf="condition;the thenBlock else elseBlock"></div>
+
+    <ng-template #thenBlock"></ng-template>
+
+    <ng-template #elseBlock"></ng-template>
+
+
+
+    <div *ngIf="condition as value;else elseBlock"></div>
+
+    <ng-template #elseBlock"></ng-template>
+
   ```
 
 
-  <div *ngIf="condition;the thenBlock else elseBlock"></div>
-  <ng-template #thenBlock"></ng-template>
-  <ng-template #elseBlock"></ng-template>
 
 
 
-  <div *ngIf="condition as value;else elseBlock"></div>
-  <ng-template #elseBlock"></ng-template>
 
-  ```
+#### 子组件通过 @Input 执行 父组件 属性 和 方法
 
+  ```typescript
+import {Input} from '@angular/core';
+
+<child-component [propertyName]="propertyName" [fmethod]="fmethod"><\child-component> 
+    // @规范    向子组件中传递 父组件的成员名称， key和v一定要一致，否则会无效 
+
+
+// child-component.ts 
+@Input() propertyName;   // 引入父组件的属性名 
+@Input() fmethod;   // 引入父组件方法名
+
+
+childMethod () {
   
+    this.fmethod(); // 子组件方法调用父组件方法
+}
+
+
+
+
   ```
+
+
+### 子组件通过 @Output 向父组件传值
+
+```javascript
+1 子组件中引入  Output EventEmitter
+import {Compontnt,OnInit,Input,Output,EventEmitter} from '@angular/core';
+
+2 子组件中实例化 EventEmitter
+@Output() private outer=new EventEmitter<String>();
+
+3 子组件中 通过 EventEmitter 对象outer 实例广播数据
+sendParent() {
+	this.outer.emit("msg from child");
+}
+
+4 父组件调用子组件的时候，定义接收事件，outer就是子组件的EventEmitter对象 outer
+<app-handle (outer)="runParent($event)"></app-handler>
+
+5 父组件接收到数据会调用自己的 runParent()方法 ，这时就能拿到子组件的数据
+
+子组件：handler-component
+父组件  app-component
+```
+
+
+
+
+
+@ViewChild  父子组件传值
+
+
+
