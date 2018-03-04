@@ -31,7 +31,49 @@
    	
    ```
 
-5. Scaffold
+
+
+
+
+
+
+```javascript
+
+// 引入 ajax 和 jsonp 模块
+import{HttpModule,JsonpModule} from '@angular/http'; //app.module.ts use
+
+import {Http,Jsonp} from '@angular/http';  // component.ts  use 
+ constructor(private http: Http ,private getJson: Jsonp){
+     this.http.get('/api/items').subscribe(data=>{
+ 		console.log(data);
+     })
+  }
+
+
+// Router模块
+import {RouterModule, Routes} from '@angular/router';
+
+import NgModule from '@angular/core';
+import FormsModule from '@angular/froms'
+```
+
+######  *ngIf 
+
+```javascript
+
+  <div *ngIf="condition"><p>condition=true P不显示</p></div>
+
+  <div *ngIf="condition;the thenBlock else elseBlock"></div>
+
+  <ng-template #thenBlock"></ng-template>
+
+  <ng-template #elseBlock"></ng-template>
+  
+  <div *ngIf="condition as value;else elseBlock"></div>
+
+	<ng-template #elseBlock"></ng-template>
+```
+
 
 
 
@@ -136,52 +178,7 @@ this.router.queryParams.subscribe(function(data){
 
 
 
-```javascript
-
-
-// 引入 ajax 和 jsonp 模块
-import{HttpModule,JsonpModule} from '@angular/http'; //app.module.ts use
-
-import {Http,Jsonp} from '@angular/http';  // component.ts  use 
- constructor(private http: Http ,private getJson: Jsonp){
-     this.http.get('/api/items').subscribe(data=>{
- 		console.log(data);
-     })
-  }
-
-
-// Router模块
-import {RouterModule, Routes} from '@angular/router';
-
-import NgModule from '@angular/core';
-import FormsModule from '@angular/froms'
-```
-
-
-
-- ngIf
-
-  ```javascript
-  <div *ngIf="condition"><p>condition=true P不显示</p></div>
-
-    <div *ngIf="condition;the thenBlock else elseBlock"></div>
-
-    <ng-template #thenBlock"></ng-template>
-
-    <ng-template #elseBlock"></ng-template>
-
-
-
-    <div *ngIf="condition as value;else elseBlock"></div>
-
-    <ng-template #elseBlock"></ng-template>
-
   ```
-
-
-
-
-
 
 #### 子组件通过 @Input 执行 父组件 属性 和 方法
 
@@ -233,9 +230,30 @@ sendParent() {
 
 
 
+### @ViewChild  父子组件传值
+
+```javascript
+// 父组件调用子组件中的方法
+
+//父组件ts文件
+dataSet = [
+    {"id":0,"name":"张三"},
+    {"id":1,"name":"李四"}
+  ]
+  //@ViewChild(子组件名称)  随便命名:子组件名称
+  @ViewChild(ChildComponent) child:ChildComponent;
+  father(){
+    //调用子组件方法
+    this.child.childFn();
+  }
+
+//父组件html代码
+<li *ngFor="let item of dataSet">
+  <app-child [names] = "item" (click)="father()"></app-child>
+</li>
+```
 
 
-@ViewChild  父子组件传值
 
 
 
