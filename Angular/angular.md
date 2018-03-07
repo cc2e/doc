@@ -15,7 +15,7 @@
    ```
 
 4. ```javascript
-   根组件
+   目录结构
    src
     |
     |--/app
@@ -30,6 +30,27 @@
     |--main.ts     //应用入口点，并启动AppModule 打开浏览器 
    	
    ```
+
+
+#### Angular组件生命周期
+
+- constructor  构造器函数，一般用于注入服务
+
+1. ngOnchanges   有数据输入时 
+2. ngOnInit      组件初始化
+3. ngDoCheck    手动触发更新检查
+4. ngAfterContentInit    内容初始化到组件后
+5. ngAfterContentChecked    内容变更检测后
+6. ngAfterViewInit    视图初始化
+7. ngAfterViewChecked  视图发生变化检查
+8. ngOnDestroy    组件注销 该消毁 多移除就在这弄- 路由跳转时会执行该钩子，销毁该组件
+
+```JAVASCRIPT
+export class myComponent implements Onchages,Oninit,Docheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
+    
+}
+```
+
 
 
 

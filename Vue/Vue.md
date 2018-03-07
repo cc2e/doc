@@ -48,7 +48,13 @@ package.json
 
 ---
 
-### Vue 生命周期
+### Vue component 生命周期 8个钩子
+
+> 创建和挂载：beforeCreate  -> created -> beforeMount -> mounted
+>
+> 更新：beforeUpdate -> updated
+>
+> 销毁：beforeDestroy -> destroyed
 
 ```
 <html>
