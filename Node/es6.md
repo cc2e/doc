@@ -48,4 +48,5 @@ for...of 可以遍历数组 和 带有iterator接口的对象如map (能得到�
 2. Object.keys(obj)  返回一个数组（所有可枚举的属性，不含symbol)
 3. Object.getOwnPropertyName(obj) 返加一个数组，包含对象自身的属性 与上2个一致
 4. Object.getOwnPropertySymbols(obj) 返加一个数组，只包含symbol属性
-5. Reflect.ownKeys(obj)   利用反射 返回对象的所有属性不区分类型
+5. Reflect.ownKeys(obj)   利用反射 返回对象的所有属性不区分类型 （最强方法）
+6. Reflect.enumerate(obj)  反回一个Iterator对象，与for in 相同
