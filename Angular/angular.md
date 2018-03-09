@@ -1,4 +1,34 @@
-#  Angular4
+#  Angular
+
+angular5 特征
+
+构建优化，删除不必要的代码的应用程序
+
+角度通用状态转移API和DOM支持
+
+改进了角编译器以支持增量编译。
+
+跨浏览器增加标准化
+
+一个新的HttpClient
+
+支持组件和指令的多个名称。
+
+生命周期事件路由器
+
+reflectiveinjector已与staticinjector更换，减少大多数开发者应用程序的大小
+
+CLI 1.5默认情况下会创建角5项目。
+
+rxjs响应程序库已经更新到版本5.5.2或后消除副作用的代码分裂
+
+
+
+
+
+
+
+
 
 起步：
 
@@ -15,7 +45,7 @@
    ```
 
 4. ```javascript
-   根组件
+   目录结构
    src
     |
     |--/app
@@ -30,6 +60,27 @@
     |--main.ts     //应用入口点，并启动AppModule 打开浏览器 
    	
    ```
+
+
+#### Angular组件生命周期
+
+- constructor  构造器函数，一般用于注入服务
+
+1. ngOnchanges   有数据输入时 
+2. ngOnInit      组件初始化
+3. ngDoCheck    手动触发更新检查
+4. ngAfterContentInit    内容初始化到组件后
+5. ngAfterContentChecked    内容变更检测后
+6. ngAfterViewInit    视图初始化
+7. ngAfterViewChecked  视图发生变化检查
+8. ngOnDestroy    组件注销 该消毁 该移除就在这弄- 路由跳转时会执行该钩子，销毁该组件
+
+```JAVASCRIPT
+export class myComponent implements Onchages,Oninit,Docheck,AfterContentInit,AfterContentChecked,AfterViewInit,AfterViewChecked,OnDestroy{
+    
+}
+```
+
 
 
 
