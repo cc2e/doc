@@ -2,6 +2,30 @@
 
 1.vue-cli  项目结构详解
 
+> 
+>
+> npm i -g  @vue-cli   //最新版 3.0 暂时不用
+>
+> 
+>
+> npm i -g  vue-cli     //2.2
+>
+> vue init webpack my-vue   //进行项目初始配置
+>
+> 
+>
+> 
+
+必备模块
+
+```javascript
+import Vue from 'vue';   //核心
+import vueRouter from 'vue-router';   //组件切换
+import vueResource from 'vue-resource';   //请求
+```
+
+
+
 ```javascript
 build/
 	|-build.js       //项目构建相关码,webpack配置
@@ -128,6 +152,46 @@ package.json
 </body>
 </html>
 ```
+
+
+
+
+
+## 组件 script结构
+
+```javascript
+<script>
+export default {
+  name:'App',
+  components: {  },
+  data () { //属性
+      return {
+          
+      }
+  },
+  props: {
+    txt: {
+      type: String,
+      default: '附近商家'
+    }
+  },
+  watch: {},
+  methods: {  //方法
+         
+  },
+  filters: {},
+  computed: {},
+  created () {},
+  mounted () {},
+  destroyed () {}
+
+}
+</script>
+```
+
+
+
+
 
 
 
@@ -259,4 +323,37 @@ data{
 }
 
 ```
+
+
+
+
+
+# 事件
+
+```javascript
+@contextmenu.prevent="show()"   //取消默认事件
+@click="add($event)"
+
+Vue 支持所有js 事件
+```
+
+
+
+# vue UI组件库
+
+- [Element](https://github.com/ElemeFE/element)
+
+
+- [bootstrapVue](https://github.com/bootstrap-vue/bootstrap-vue/)
+
+
+- [mint UI](https://github.com/ElemeFE/mint-ui)
+
+
+- [vum](https://github.com/vum-team/vum)
+
+
+- [vue Material](https://github.com/marcosmoura/vue-material)
+- [muse-ui](https://github.com/museui/muse-ui)
+- [Framework7-vue](https://github.com/nolimits4web/Framework7-Vue)
 
