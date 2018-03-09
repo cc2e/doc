@@ -1,8 +1,24 @@
-pm2  监控Node
+> 环境变量 windows 和 Linux,
 
-forever 监控Node
+```
 
-Beanstalkd  消息队列
+windows : set NODE_ENV=prod&&node index.js
+
+Linux : export NODE_ENV=prod&&node index.js
+
+
+console.log(process.env.NODE_ENV) //prod
+
+嫌麻烦的话就去使用  cross-env  
+```
+
+
+
+
+
+
+
+
 
 
 

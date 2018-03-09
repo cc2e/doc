@@ -16,5 +16,7 @@
 
 [NW](https://github.com/nwjs/nw.js)
 
+[cross-env](https://github.com/kentcdodds/cross-env)   
+
 
 
