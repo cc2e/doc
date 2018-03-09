@@ -8,6 +8,10 @@
 
 [D3](https://github.com/d3/d3)
 
+[three](https://github.com/mrdoob/three.js)
+
+[zrender](https://github.com/ecomfe/zrender)
+
 
 
 ## Node 
@@ -18,5 +22,12 @@
 
 [cross-env](https://github.com/kentcdodds/cross-env)   
 
+[sinopia](https://github.com/rlidwka/sinopia)
 
 
+
+
+
+## Nginx
+
+http://www.nginx.cn/doc/
