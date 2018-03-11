@@ -21,8 +21,21 @@
 ```javascript
 import Vue from 'vue';   //核心
 import vueRouter from 'vue-router';   //组件切换
-import vueResource from 'vue-resource';   //请求
+import axios from 'axios';   //http请求库
 ```
+
+
+
+$route.name
+
+```
+//路由中传参
+:to="{name:HOME-First-cc,params:{id:123}}" //虚拟传参 不会真正的地址栏中显示
+//获取参数
+$route.params.id
+```
+
+
 
 
 
