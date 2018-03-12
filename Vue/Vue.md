@@ -8,9 +8,9 @@
 >
 > 
 >
-> npm i -g  vue-cli     //2.2
+> npm  i -g  vue-cli     //2.2
 >
-> vue init webpack my-vue   //进行项目初始配置
+> vue   init  webpack my-vue   //进行项目初始配置
 >
 > 
 >
@@ -26,18 +26,205 @@ import axios from 'axios';   //http请求库
 
 
 
-$route.name
+**component property**
+
+```Javascript
+$options
+$parent
+$refs
+$root
+$scopedSlots
+$slots
+$vnode
+$attrs
+$children
+$el
+$props
+$route    //读取query 和 params 参数用
+$router  //路由器地址 注入工具
+$data
 
 ```
+
+
+
+**路由传参**
+
+```vue
 //路由中传参
-:to="{name:HOME-First-cc,params:{id:123}}" //虚拟传参 不会真正的地址栏中显示
+:to="{name:routeName,params:{id:123}}" //隐式传参  name:组件的name  params 不会真正的地址栏中显示
 //获取参数
-$route.params.id
+{{$route.params.id}}/123
+
+
+:to="{path:"/blog/js,query:{id:123}}"  //显示传参 ／blog/js?id=123
+{{$route.query.id}}//123
+```
+
+
+
+**父组件方问子组件** 
+
+```
+this.$children: :array
+```
+
+
+
+ **子组件访问父组件**
+
+```javascript
+this.$parent 
+```
+
+
+
+组件个数较多时，我们难以记住各个组件的顺序和位置，通过序号访问子组件不是很方便。
+在子组件上使用 **ref ** 指令，可以给子组件指定一个索引 ID。
+
+```javascript
+//this.$refs:array
+<child-component1 ref="cid1"/>
+<child-component2 ref="cid2"/>
+<button @click="showChildComponentData">显示子组件的数据</button>
+showChildComponentData(){
+    console.log(this.$refs.cid1)
+}
+```
+
+
+
+**路由重定向**
+
+> path:/originpath,       
+>
+> redirect : '/routepath'
+
+```javascript
+普通重定向
+{
+    path:'webgl',    //访问 webgl会转到react
+    redirect:'react',
+    name:'Webgl',
+    component:Webgl
+}
+
+动态返回重定向
+{
+    path:'/a',
+        redirect:to=>{
+            //计算返回路由的path
+            return '/cc';
+        }
+}
+
+
+
+```
+
+
+
+**别名 alias**
+
+```
+routes:[
+    {
+       // home 是 index的别名
+        path:'/index',component:Index,alias:"/home"
+    }
+]
 ```
 
 
 
 
+
+
+
+---
+
+# 组件通信 
+
+
+
+**通过props子获取父组件传递的参数**
+
+```javascript
+//父组件
+<childComponent v-bind:parentArg="msg">
+
+//子组件
+export default{
+	props:['parentArg'],
+}    
+
+    
+```
+
+
+
+**父组件获取子组件传递的消息**  
+
+> v-on:child-msg="childmsg"  
+
+> this.$emit("childmsg","我是子组件的消息");
+
+```javascript
+//父组件
+<childComponent v-on:child-msg="childmsg"></childComponetn>
+export default{
+    methods:{
+        valueUp(msg){
+            //接收子组件递来的消息
+            this.childMsg=msg;
+        }
+    }
+}
+
+
+//子组件件环境，通过事件发送消息
+method:{
+    enterFather(){
+        this.$emit("childMsg","我是向父组件递交的消息");
+    }
+}
+
+
+
+```
+
+
+
+
+
+---
+
+**获取自定义属性**   
+
+```javascript
+<h5 class="left t-title" @click='getDataId(item.id)' :data-id="item.id"></h5>
+
+<script>
+    methods: {
+        getDataId(id) {
+            console.log(id);
+        }
+      },
+    
+</script>
+```
+
+
+
+
+
+
+
+
+
+---
+
+## Vue项目结构
 
 ```javascript
 build/
@@ -119,7 +306,7 @@ package.json
   var app = new Vue({
       el: '#app',
       data: {
-          message : "xuxiao is boy" 
+          message : "the message" 
       },
        beforeCreate: function () {
                 console.group('beforeCreate 创建前状态===============》');
@@ -225,11 +412,11 @@ export default {
 
 ---
 
-### Vue 基础
+### Vue 基础指令 
 
 
 
-- 插值 v-html, v-once, v-model="inputmsg"  
+- 插值 v-html,      v-once,     v-model="inputmsg"  
 
   ​
 
@@ -254,7 +441,8 @@ export default {
   ​
 
 
-- v-bind, v-on ,v-for,v-if
+- v-bind,     v-on    ,v-if    v-else , v-show   ,
+- v-for="item in items"   arrary:v-for="{item,index} in items"       object:v-for="{item,key,index} in items"
 
 ```javascript
 {{meassge}}
@@ -283,6 +471,12 @@ todos: [
 
 
 ```
+
+
+
+**数组更新检测—触发视图更新的方法**
+
+> push、pop、shift、unshift、splice、sort、reverse
 
 
 
@@ -341,7 +535,7 @@ var vm = new Vue({
 
 #### class与Style
 
-```
+```javascript
 <div v-bind:class="{active:isActive,'text-danger':hasError}"></div>  
 
 
@@ -350,6 +544,23 @@ data{
     hasError:false
 }
 
+
+
+<div v-bind:class="[activeClass,errorClass]"></div>
+data(){
+    return{
+        activeClass:"active",
+        errorClass:"text-danger"
+    }
+}
+
+
+<div :style="{color:activeColor,fontSize:fontSize+'px'}"></div>
+<div v-bind:style="styleObject"></div>
+
+
+<div :style="{display:['-webkit-box','-ms-flexbox','flex']}"></div>
+
 ```
 
 
@@ -357,6 +568,79 @@ data{
 
 
 # 事件
+
+事件监听，绑定  **v-on**
+
+事件修饰符
+
+> .stop      阻止事件冒泡
+>
+> .prevent    阻止默认事件
+>
+> .capture  事件捕获
+>
+> .self   只对该元素触发的事件
+>
+> .once  一次性事件，
+>
+> .passive  提修事件监听器的性能写法 addEventListener(obj,fn,passive)
+
+
+
+#### 键盘修饰符   @keyup.enter="methodName"
+
+>.enter
+>
+>.tab
+>
+>.delete
+>
+>.esc
+>
+>.space
+>
+>[.up|.down|.left|.right]   
+>
+>.ctrl
+>
+>.alt
+>
+>.shift
+>
+>.meta
+
+
+
+#### 鼠标修饰符
+
+> .left 
+>
+> .right
+>
+> .middle
+
+
+
+**.exact** 精确模式
+
+```
+//宽松模式，必须的事件存在即可
+<button @click.ctrl="eveFn">ctrl+click</button>
+
+//必须 ctrl被按下时修改才触发click
+<button @click.ctrl.exact="onCtrlClick"> </button>
+
+
+
+```
+
+
+
+
+
+
+
+
 
 ```javascript
 @contextmenu.prevent="show()"   //取消默认事件
